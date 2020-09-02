@@ -6,30 +6,26 @@
 extern crate sciter;
 
 use sciter::{ HELEMENT, Element, Value };
-mod mods;
+// mod mods;
+// use mods::*;
+mod api;
+use api::structs::UIEvents;
+// use api::*;
 
-struct EventHandler {
-	root: Option<Element>,
-}
-
-impl EventHandler {
+impl UIEvents {
 	fn calc_sum(&mut self, a: i32, b: i32) -> i32 {
 		a + b
     }
-    
-    fn getUsers(&mut self) -> String {
-        mods::Lib::methods::get_users()
-    }
 }
 
-impl sciter::EventHandler for EventHandler {
+impl sciter::EventHandler for UIEvents {
 	fn attached(&mut self, root: HELEMENT) {
 		self.root = Some(Element::from(root));
 	}
 
 	dispatch_script_call! {
         fn calc_sum(i32, i32);
-        fn getUsers();
+		fn User();
 	}
 
 	fn on_script_call(&mut self, root: HELEMENT, name: &str, argv: &[Value]) -> Option<Value> {
@@ -45,7 +41,7 @@ impl sciter::EventHandler for EventHandler {
 fn main() {
 	let login = "C:\\Users\\hsemi\\Desktop\\ME\\2020\\projects\\Supermarket\\ui\\main.html";
     // let resources = include_bytes!("all_users.rc");
-    let handler = EventHandler { root: None };
+    let handler = UIEvents { root: None };
     let mut frame = sciter::Window::new();
     // frame.archive_handler(resources).expect("Invalid archive");
     frame.event_handler(handler);
