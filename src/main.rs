@@ -2,15 +2,13 @@
 #![allow(unused_variables)]
 #![allow(non_snake_case)]
 
+extern crate sha1;
+
 #[macro_use]
 extern crate sciter;
-
 use sciter::{ HELEMENT, Element, Value };
-// mod mods;
-// use mods::*;
 mod api;
 use api::structs::UIEvents;
-// use api::*;
 
 impl UIEvents {
 	fn calc_sum(&mut self, a: i32, b: i32) -> i32 {
@@ -48,6 +46,4 @@ fn main() {
     frame.load_file(login);
     // frame.load_file("this://app/index.htm");
     frame.run_app();
-
-    // println!("{}", mods::Lib::methods::get_users());
 }

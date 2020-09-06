@@ -8,6 +8,7 @@ dependencies = [
  "sciter-rs",
  "serde",
  "serde_json",
+ "sha1",
 ]
 
 [[package]]

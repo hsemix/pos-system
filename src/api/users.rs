@@ -2,7 +2,7 @@ use super::structs::*;
 
 use sciter::{ Value };
 
-use super::modss::*;
+use super::mods::*;
 
 impl UIEvents {	
 	pub fn User(&mut self) -> Value {
@@ -12,28 +12,19 @@ impl UIEvents {
         }
 
         fn register(args: &[Value]) -> Value {
-            Value::from("Register")
+			
+			let message = methods::save_user(&args[0]);
+
+			let result = vmap!{
+				"status" => true,
+				"message" => "You're successful",
+			};			
+			Value::from(result)
 		}
 		
 		fn getUsers(args: &[Value]) -> Value {
 			Value::from(methods::get_users())
 		}
-
-        // fn on_add(args: &[Value]) -> Value {
-		// 	let ints = args.iter().map(|x| x.to_int().unwrap());
-		// 	// let sum: i32 = ints.sum();	// error: issue #27739
-		// 	let sum: i32 = ints.sum();
-		// 	Value::from(sum)
-		// }
-
-		// fn on_sub(args: &[Value]) -> Value {
-		// 	if args.len() != 2 || args.iter().any(|x| !x.is_int()) {
-		// 		return Value::error("sub requires 2 integer arguments!");
-		// 	}
-		// 	let ints: Vec<_> = args.iter().map(|x| x.to_int().unwrap()).collect();
-		// 	let (a,b) = (ints[0], ints[1]);
-		// 	Value::from(a - b)
-		// }
 
         let mut api = Value::new();
 
