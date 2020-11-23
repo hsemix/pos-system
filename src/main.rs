@@ -1,4 +1,4 @@
-#![windows_subsystem="windows"]
+// #![windows_subsystem="windows"]
 #![allow(unused_variables)]
 #![allow(non_snake_case)]
 
@@ -24,6 +24,18 @@ impl sciter::EventHandler for UIEvents {
 	dispatch_script_call! {
         fn calc_sum(i32, i32);
 		fn User();
+		fn Tax();
+		fn Vote();
+		fn Branch();
+		fn Settings();
+		fn Category();
+		fn Employee();
+		fn Measurement();
+		fn SalaryScale();
+		fn Penalty();
+		fn Supplier();
+		fn Customer();
+		fn Product();
 	}
 
 	fn on_script_call(&mut self, root: HELEMENT, name: &str, argv: &[Value]) -> Option<Value> {

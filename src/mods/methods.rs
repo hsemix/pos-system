@@ -49,3 +49,18 @@ pub fn save_user(user: &Value) -> String {
 
     "user saved".to_string()
 }
+
+pub fn login_user(user: &Value) -> Vec<User> {
+    let query = "SELECT `id`, `fullname`, `username`, `status` FROM `users` WHERE `username`=? AND `password`=?";
+    let result: Vec<User> = pool().prep_exec(query, (
+        user["username"].as_string().unwrap(),  
+        Sha1::from(user["password"].as_string().unwrap()).digest().to_string()
+    )).map(|result| {
+        result.map(|x| x.unwrap()).map(|row| {
+            let (id, fullname, username, status) = mysql::from_row(row);
+            User { id, fullname, username, status }
+        }).collect()
+    }).unwrap(); // Unwrap `Vec<User>`;
+    // serde_json::to_string(&result).unwrap()
+    result
+}

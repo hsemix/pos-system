@@ -8,7 +8,26 @@ impl UIEvents {
 	pub fn User(&mut self) -> Value {
 
 		fn login(args: &[Value]) -> Value {
-            Value::from("Login")
+			
+			let message = methods::login_user(&args[0]);
+
+			if message.len() > 0 {
+				let gotUser = serde_json::to_string(&message[0]).unwrap();
+
+				let user: Value = gotUser.parse().unwrap();
+				return Value::from(vmap!{
+					"status" => true,
+					"message" => "User data found",
+					"data" => user,
+				});
+			}
+
+			Value::from(vmap!{
+				"status" => false,
+				"message" => "Wrong Username and or Password combination",
+			})
+			
+			// Value::from(message)
         }
 
         fn register(args: &[Value]) -> Value {
